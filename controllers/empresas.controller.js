@@ -22,7 +22,22 @@ const addEmpresa = async (req, res) => {
   }
 };
 
+const actualizarEmpresa = async (req, res) => {
+  const { id } = req.params;
+  const datos = req.body;
+  await db.collection("empresas").doc(id).update(datos);
+  res.status(200).json({ message: "Empresa actualizada correctamente" });
+};
+
+const eliminarEmpresa = async (req, res) => {
+  const { id } = req.params;
+  await db.collection("empresas").doc(id).delete();
+  res.status(200).json({ message: "Empresa eliminada correctamente" });
+};
+
 module.exports = {
   getEmpresas,
   addEmpresa,
+  actualizarEmpresa,
+  eliminarEmpresa,
 };

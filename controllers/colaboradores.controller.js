@@ -21,7 +21,30 @@ const addColaborador = async (req, res) => {
   }
 };
 
+const eliminarColaborador = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("colaboradores").doc(id).delete();
+    res.status(200).json({ message: "Colaborador eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const actualizarColaborador = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const nuevo = req.body;
+    await db.collection("colaboradores").doc(id).update(nuevo);
+    res.status(200).json({ message: "Colaborador actualizado correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getColaboradores,
   addColaborador,
+  eliminarColaborador,
+  actualizarColaborador,
 };
